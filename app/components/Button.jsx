@@ -1,13 +1,7 @@
 import React from "react";
 import { useFormStatus } from "react-dom";
 
-export default function Button({
-  children,
-  loadingText,
-  classes,
-  onClick,
-  ...props
-}) {
+export function Button({ children, loadingText, classes, onClick, ...props }) {
   const { pending } = useFormStatus();
 
   const styles = pending
@@ -49,3 +43,15 @@ const LoadingIndicator = ({ children }) => {
     </div>
   );
 };
+
+export function CircularButton({ children, onSubmit, ...props }) {
+  return (
+    <button
+      {...props}
+      onClick={onSubmit}
+      className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 font-bold text-white hover:brightness-150"
+    >
+      {children}
+    </button>
+  );
+}

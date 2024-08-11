@@ -17,6 +17,10 @@ You are an AI assistant that only uses the provided context to answer questions 
 export async function POST(req) {
   const data = await req.json();
   const query = data[data.length - 1].content;
+  const chatHistory = data
+    .slice(0, data.length - 1)
+    .map((item) => item.content)
+    .join("\n");
 
   const embeddings = new OpenAIEmbeddings({
     openAIApiKey: process.env.OPENAI_API_KEY,
@@ -39,8 +43,15 @@ export async function POST(req) {
 
   const prompt = `You are an AI assistant that answers questions based ONLY on the following context from a YouTube video transcript. Do not use any external knowledge.
 
-Context:
+Here is the conversational history (between the user and you) prior to the question. It could be empty if there is no history:
+  <history>
+  ${chatHistory}
+  </history>
+
+Top 3 relevant parts of the video transcript:
+<transcript>
 ${context}
+</transcript>
 
 Question: ${query}
 

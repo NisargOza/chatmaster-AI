@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { marked } from "marked";
+import Modal from "./Modal";
+import { CircularButton } from "./Button";
 
 const ChatInterface = ({ initialMessage, apiEndpoint, messageColors }) => {
   const [messages, setMessages] = useState([
@@ -9,6 +11,8 @@ const ChatInterface = ({ initialMessage, apiEndpoint, messageColors }) => {
     },
   ]);
   const [message, setMessage] = useState("");
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -17,6 +21,13 @@ const ChatInterface = ({ initialMessage, apiEndpoint, messageColors }) => {
 
   useEffect(() => {
     scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    console.log(messages.length);
+    if (messages.length === 7) {
+      setModalIsOpen(true);
+    }
   }, [messages]);
 
   const sendMessage = async () => {
@@ -68,8 +79,36 @@ const ChatInterface = ({ initialMessage, apiEndpoint, messageColors }) => {
     }
   };
 
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const handleSubmitFeedback = () => {
+    setFeedbackSubmitted(true);
+    setTimeout(() => {
+      handleCloseModal();
+    }, 1000);
+  };
+
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gray-900 text-white">
+    <div className="box-border flex h-full flex-col items-center justify-center overflow-auto bg-gray-900 text-white">
+      {modalIsOpen && (
+        <Modal onClose={handleCloseModal}>
+          How would you rate the Chatbot responses?
+          <div className="my-4 flex justify-between">
+            {[1, 2, 3, 4, 5].map((rating) => (
+              <CircularButton onSubmit={handleSubmitFeedback} key={rating}>
+                {rating}
+              </CircularButton>
+            ))}
+          </div>
+          {feedbackSubmitted && (
+            <div className="text-center text-sm text-green-300">
+              Thank you for your feedback!
+            </div>
+          )}
+        </Modal>
+      )}
       <div className="flex h-full w-full flex-col gap-3 p-2">
         <div className="flex h-full flex-col gap-2 overflow-y-auto">
           {messages.map((msg, idx) => (

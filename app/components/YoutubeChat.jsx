@@ -7,7 +7,7 @@ export default function YoutubeChat() {
   const apiEndpoint = "/api/chat/youtube";
   const messageColors = {
     user: "bg-green-700",
-    assistant: "bg-purple-700",
+    assistant: "bg-purple-900",
   };
 
   return (
