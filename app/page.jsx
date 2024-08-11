@@ -1,10 +1,5 @@
-import Image from 'next/image';
-import Chat from './components/Chat';
+import Options from "./components/Options";
 
 export default function Home() {
-  return (
-    <>
-      <Chat />
-    </>
-  );
+  return <Options />;
 }

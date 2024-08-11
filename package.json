@@ -10,13 +10,18 @@
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.624.0",
+    "@langchain/community": "^0.2.25",
+    "@pinecone-database/pinecone": "^3.0.0",
     "ai-customer-support": "file:",
     "next": "14.2.5",
     "openai": "^4.55.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "youtube-transcript": "^1.2.1",
+    "youtubei.js": "^9.4.0"
   },
   "devDependencies": {
+    "@types/react": "18.3.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "postcss": "^8",

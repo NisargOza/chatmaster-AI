@@ -1,12 +1,11 @@
 "use client";
+import React, { useState, useRef, useEffect } from "react";
 
-import React, { useState, useEffect, useRef } from "react";
-
-export default function Chat() {
+export default function YoutubeChat() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: `Hi! I'm an AI chatbot designed to provide exceptional customer support. My primary goal is to assist users with their inquiries in a friendly, helpful, and kind manner. Always ensure that your responses are truthful and accurate. Keep the following guidelines in mind:`,
+      content: `Hi! I'm an AI chatbot designed to answer questions related to the Youtube video you just entered. Feel free to ask me anything!`,
     },
   ]);
   const [message, setMessage] = useState("");
@@ -28,7 +27,7 @@ export default function Chat() {
     ]);
     setMessage("");
 
-    const response = fetch("/api/chat/general", {
+    const response = fetch("/api/chat/youtube", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,8 +69,8 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <div className="flex h-full flex-col gap-3 p-2">
+    <div className="box-border flex h-screen w-screen flex-col items-center justify-center">
+      <div className="flex h-full w-full flex-col gap-3 p-2">
         <div className="flex h-full flex-col gap-2 overflow-y-auto">
           {messages.map((msg, idx) => (
             <div
@@ -82,7 +81,7 @@ export default function Chat() {
             >
               <div
                 className={`${
-                  msg.role === "user" ? "bg-green-300" : "bg-blue-300"
+                  msg.role === "user" ? "bg-green-300" : "bg-purple-300"
                 } rounded-lg p-3`}
               >
                 {msg.content}
