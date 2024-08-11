@@ -18,8 +18,8 @@ const YOUTUBE_URLS_PATH = "./app/youtube-url.json";
 // Let the model study the Youtube video
 export async function feedModel(prevState, url) {
   // Check if the URL is a valid Youtube URL
-  if (!url || !url.startsWith("https://www.youtube.com/")) {
-    return { statusCode: 400 };
+  if (!isValidYoutubeUrl(url)) {
+    return { message: "Invalid Youtube URL" };
   }
 
   if (!urlExists(url)) {
@@ -31,7 +31,16 @@ export async function feedModel(prevState, url) {
     } catch (error) {
       console.log("Error feeding model:", error);
       removeUrl(url);
-      return { statusCode: 500 };
+
+      if (
+        error.message.includes(
+          "Cannot read properties of undefined (reading 'filter')"
+        )
+      ) {
+        return { message: "This video does not have transcripts." };
+      }
+
+      return { message: "Error feeding model." };
     }
   }
 
@@ -121,4 +130,11 @@ function removeUrl(url) {
     const updatedUrls = urls.filter((u) => u !== url);
     fs.writeFileSync(filePath, JSON.stringify(updatedUrls));
   }
+}
+
+function isValidYoutubeUrl(url) {
+  const youtubeRegex =
+    /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/watch\?v=.+$/.test(url);
+
+  return youtubeRegex;
 }

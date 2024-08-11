@@ -50,6 +50,7 @@ Instructions:
 3. Use citations like [1], [2], [3] to indicate which part of the context you're using for each part of your answer.
 4. Do not make up or infer any information that is not explicitly stated in the context.
 
+
 Answer:`;
 
   const completion = await openai.chat.completions.create({

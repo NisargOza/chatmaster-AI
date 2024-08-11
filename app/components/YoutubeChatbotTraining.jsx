@@ -15,9 +15,14 @@ export default function YoutubeChatbotTraining() {
   };
 
   return (
-    <form action={handleSubmit} className="flex flex-col items-center">
-      <H1 classes="my-4 py-4">Ask any questions related to a Youtube Video</H1>
-      <label className="mb-2 text-lg font-semibold text-gray-700">
+    <form
+      action={handleSubmit}
+      className="box-border flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-r from-gray-900 to-blue-900"
+    >
+      <H1 classes="my-4 py-4 text-gray-100">
+        Ask any questions related to a Youtube Video
+      </H1>
+      <label className="mb-2 text-lg font-semibold text-gray-100">
         Enter the Youtube URL
       </label>
       <input
@@ -25,16 +30,10 @@ export default function YoutubeChatbotTraining() {
         placeholder="E.g: https://www.youtube.com/watch?v=cTO-9mORwYs"
         name="url"
       />
-      {state?.statusCode === 400 && (
-        <p className="mt-2 text-sm text-red-500">
-          Please enter a valid Youtube URL
-        </p>
+      {state?.message && (
+        <p className="mt-2 text-sm text-red-500">{state.message}</p>
       )}
-      {state?.statusCode === 500 && (
-        <p className="mt-2 text-sm text-red-500">
-          Something went wrong. Please try again
-        </p>
-      )}
+
       <Button
         loadingText={"Training..."}
         type="submit"

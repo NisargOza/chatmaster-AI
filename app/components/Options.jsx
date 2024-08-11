@@ -20,7 +20,7 @@ export default function Options() {
           className="transform rounded-lg bg-gray-800 px-8 py-4 text-lg font-bold text-purple-400 shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:bg-gray-700 hover:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
           href="/training/youtube"
         >
-          Ask Questions from a Youtube Video
+          Youtube Chat Bot
         </Link>
       </div>
     </div>
