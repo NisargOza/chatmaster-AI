@@ -2,38 +2,221 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* Define color variables */
+:root {
+  --foreground-color: #333;
+  --background-color: #363737;
+  --user-bg-color: #5db841;
+  --assistant-bg-color: #1696c0;
+  --chat-input-bg-color: #161414; /* Black background for chatbox input fields */
+  --chat-input-text-color: #e0e0e0; /* Light gray text color for chatbox input fields */
+  --login-input-bg-color: #ffffff; /* White background for login input fields */
+  --login-input-text-color: #333333; /* Dark text color for login input fields */
+  --input-text-color: #000000; /* Text color for input fields */
+  --button-bg-color: #121212; 
+  --button-hover-bg-color: #171717;
+  --button-active-bg-color: #141414;
+  --button-text-color: #ffffff;
+  --text-color: #ffffff;
+  --border-color: #000000;
+  --font-family: 'Roboto', sans-serif;
+  --header-bg-color: #333; /* Background color for header */
+  --header-text-color: #ffffff; /* Text color for header */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-} */
-
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-} */
-
-body {
+/* Global Styles */
+html, body {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  height: 100%;
+  overflow: hidden; /* Prevent unwanted scrolling */
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+/* Header Styles */
+.header-bar {
+  background-color: var(--header-bg-color);
+  color: var(--header-text-color);
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+
+/* Header Title */
+.header-title {
+  margin-right: auto; /* Pushes the title to the left */
+}
+
+/* Auth Buttons Container */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+}
+
+/* Sign In Button Styles */
+.sign-in-button {
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  padding: 0.5rem 1rem; /* Increased padding for a larger rectangle */
+  border-radius: 0.25rem; /* Small border radius for rectangle */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1rem; /* Adjusted font size for better scaling */
+  text-align: center;
+  display: inline-block;
+  margin-left: 1rem; /* Space between buttons */
+}
+
+.sign-in-button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+
+.sign-in-button:active {
+  background-color: var(--button-active-bg-color);
+}
+
+/* Main content area */
+.main-content {
+  padding-top: 3.5rem; /* Adjust based on the height of your header */
+  height: calc(100% - 3.5rem); /* Full height minus the header height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chat Container Styles */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding-bottom: 4rem; /* Ensure there is space for the fixed input and button */
+}
+
+/* Chat Input Area Styles */
+.chat-input-area {
+  background-color: var(--background-color); /* Black background for input area */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  z-index: 1000; /* Ensure it's above the chat content */
+}
+
+/* Chat Bubble Styles */
+.bg-user-message {
+  background-color: var(--user-bg-color);
+  color: var(--text-color);
+  padding: 0.75rem;
+  border-radius: 2rem; /* Increased border-radius for more rounded bubbles */
+  margin-bottom: 0.5rem;
+  max-width: 70%;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.bg-assistant-message {
+  background-color: var(--assistant-bg-color);
+  color: var(--text-color);
+  padding: 0.75rem;
+  border-radius: 2rem; /* Increased border-radius for more rounded bubbles */
+  margin-bottom: 0.5rem;
+  max-width: 70%;
+  text-align: left;
+  font-size: 1rem;
+  margin-top: 1rem; /* Add margin to move AI message lower */
+}
+
+/* Input Field Styles for Chatbox */
+.chat-container input[type="text"], .chat-container input[type="email"] {
+  background-color: var(--chat-input-bg-color); /* Black background for chatbox input */
+  color: var(--chat-input-text-color); /* Light gray text color */
+  border: 1px solid var(--border-color);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+/* Input Field Styles for Login Page */
+.signup-container input[type="text"], .signup-container input[type="email"] {
+  background-color: var(--login-input-bg-color); /* White background for login input */
+  color: var(--login-input-text-color); /* Dark text color */
+  border: 1px solid var(--border-color);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+/* Button Styles */
+button {
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1rem;
+  text-align: center;
+  display: inline-block;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+
+button:active {
+  background-color: var(--button-active-bg-color);
+}
+
+/* Ensure responsiveness */
+@media (max-width: 768px) {
+  .bg-user-message, .bg-assistant-message {
+    max-width: 90%;
+  }
+
+  input[type="text"], input[type="email"], button {
+    width: 100%;
+  }
+}
+
+/* Sign-In Container Styles */
+.signup-container {
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  background-color: var(--background-color); /* Ensure background color matches your design */
+}
+
+/* Sign-In Form Styles */
+.sign-in-form {
+  max-width: 400px; /* Set a maximum width for the form */
+  width: 100%; /* Make the form take up available space within the max-width */
+  background-color: var(--login-input-bg-color); /* Background color for the form */
+  border-radius: 0.5rem; /* Rounded corners for the form container */
+  padding: 2rem; /* Padding inside the form container */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow to the form */
 }
