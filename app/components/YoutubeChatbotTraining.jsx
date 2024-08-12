@@ -26,7 +26,7 @@ export default function YoutubeChatbotTraining() {
         Enter the Youtube URL
       </label>
       <input
-        className="w-96 rounded-lg border-2 border-gray-300 p-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        className="w-96 rounded-lg border-2 border-gray-300 p-4 text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
         placeholder="E.g: https://www.youtube.com/watch?v=cTO-9mORwYs"
         name="url"
       />

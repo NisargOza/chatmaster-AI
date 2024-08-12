@@ -4,7 +4,6 @@ import { Pinecone } from "@pinecone-database/pinecone";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 const { OpenAIEmbeddings } = require("@langchain/openai");
 import { v4 as uuidv4 } from "uuid";
-import fs from "fs";
 import { redirect } from "next/navigation";
 
 const EMBED_MODEL = "text-embedding-3-small";
@@ -13,7 +12,7 @@ const pc = new Pinecone({
   apiKey: process.env.PINECONE_API_KEY,
 });
 const pineconeIndex = pc.index(INDEX_NAME);
-const YOUTUBE_URLS_PATH = "./app/youtube-url.json";
+import { sql } from "@vercel/postgres";
 
 // Let the model study the Youtube video
 export async function feedModel(prevState, url) {
@@ -21,16 +20,16 @@ export async function feedModel(prevState, url) {
   if (!isValidYoutubeUrl(url)) {
     return { message: "Invalid Youtube URL" };
   }
-
-  if (!urlExists(url)) {
-    storeUrl(url);
+  const isExisting = await urlExists(url);
+  if (!isExisting) {
+    await storeUrl(url);
     try {
       const texts = await getYoutubeTranscript(url);
       const docs = await getTextSplitter(texts);
       await insertDataToPinecone(docs);
     } catch (error) {
       console.log("Error feeding model:", error);
-      removeUrl(url);
+      await removeUrl(url);
 
       if (
         error.message.includes(
@@ -89,46 +88,28 @@ async function insertDataToPinecone(docs) {
   }
 }
 
-function urlExists(url) {
-  const filePath = YOUTUBE_URLS_PATH;
-
-  if (fs.existsSync(filePath)) {
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const urls = JSON.parse(fileContent);
-    return urls.includes(url);
-  }
-
-  return false;
-}
-
-function storeUrl(url) {
-  const filePath = YOUTUBE_URLS_PATH;
-
-  // Check if the file exists
-  if (fs.existsSync(filePath)) {
-    // Read the existing file content
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const urls = JSON.parse(fileContent);
-
-    // Add the new URL to the array if it doesn't already exist
-    if (!urls.includes(url)) {
-      urls.push(url);
-      fs.writeFileSync(filePath, JSON.stringify(urls));
-    }
-  } else {
-    // Create the file with the new URL if it doesn't exist
-    fs.writeFileSync(filePath, JSON.stringify([url]));
+async function urlExists(url) {
+  try {
+    const dbURL = await sql`SELECT * FROM youtube_urls WHERE url = ${url}`;
+    return dbURL.rows.length > 0;
+  } catch (error) {
+    console.log(error);
   }
 }
 
-function removeUrl(url) {
-  const filePath = YOUTUBE_URLS_PATH;
+async function storeUrl(url) {
+  try {
+    await sql`INSERT INTO youtube_urls (url) VALUES (${url})`;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-  if (fs.existsSync(filePath)) {
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const urls = JSON.parse(fileContent);
-    const updatedUrls = urls.filter((u) => u !== url);
-    fs.writeFileSync(filePath, JSON.stringify(updatedUrls));
+async function removeUrl(url) {
+  try {
+    await sql`DELETE FROM youtube_urls WHERE url = ${url}`;
+  } catch (error) {
+    console.log(error);
   }
 }
 

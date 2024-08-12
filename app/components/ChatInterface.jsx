@@ -24,7 +24,6 @@ const ChatInterface = ({ initialMessage, apiEndpoint, messageColors }) => {
   }, [messages]);
 
   useEffect(() => {
-    console.log(messages.length);
     if (messages.length === 7) {
       setModalIsOpen(true);
     }
