@@ -3,7 +3,7 @@
 https://github.com/user-attachments/assets/380fec99-98ff-45ab-bf28-e4d3d4038fcb
 
 # Link to demo 
-https://ai-customer-support-five-murex.vercel.app/
+https://ai-customer-support.project.raglandconnor.com/
 
 ## Features
 ### AI Chatbot for General Inquiries:
