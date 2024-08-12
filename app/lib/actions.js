@@ -16,6 +16,7 @@ import { sql } from "@vercel/postgres";
 
 // Let the model study the Youtube video
 export async function feedModel(prevState, url) {
+  // await pineconeIndex.deleteAll({ deleteAll: true, namespace: "default" });
   // Check if the URL is a valid Youtube URL
   if (!isValidYoutubeUrl(url)) {
     return { message: "Invalid Youtube URL" };
