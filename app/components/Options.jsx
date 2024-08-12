@@ -1,12 +1,16 @@
 import Link from "next/link";
 import React from "react";
 import H1 from "./H1";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 
-export default function Options() {
+export default async function Options() {
+  const user = await currentUser();
+
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center bg-gradient-to-r from-gray-900 to-blue-900 p-6">
-      <H1 classes="text-gray-100 mb-4">Welcome to AI Support Chatbot!</H1>
+      <H1 classes="text-gray-100 mb-4">
+        Hi {user?.firstName ?? "there"} 😊 Welcome to AI Support Chatbot
+      </H1>
       <h2 className="mb-8 text-2xl font-semibold text-gray-300">
         Select an option
       </h2>
