@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import H1 from "./H1";
-import { Button } from "./Button";
-import { feedModel } from "../lib/actions";
-import { useFormState } from "react-dom";
+import H1 from './H1';
+import { Button } from './Button';
+import { feedModel } from '../lib/actions';
+import { useFormState } from 'react-dom';
 
 export default function YoutubeChatbotTraining() {
   const [state, dispatch] = useFormState(feedModel, null);
 
   const handleSubmit = async (formData) => {
     // Prevent the default form submission
-    const url = formData.get("url");
+    const url = formData.get('url');
     dispatch(url);
   };
 
@@ -26,7 +26,7 @@ export default function YoutubeChatbotTraining() {
         Enter the Youtube URL
       </label>
       <input
-        className="w-96 rounded-lg border-2 border-gray-300 p-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        className="text-black w-96 rounded-lg border-2 border-gray-300 p-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
         placeholder="E.g: https://www.youtube.com/watch?v=cTO-9mORwYs"
         name="url"
       />
@@ -35,7 +35,7 @@ export default function YoutubeChatbotTraining() {
       )}
 
       <Button
-        loadingText={"Training..."}
+        loadingText={'Training...'}
         type="submit"
         classes="mt-4 py-2 px-4"
       >
