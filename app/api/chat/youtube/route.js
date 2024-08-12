@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
-import OpenAI from "openai";
-const { OpenAIEmbeddings } = require("@langchain/openai");
-const { Pinecone } = require("@pinecone-database/pinecone");
+import { NextResponse } from 'next/server';
+import OpenAI from 'openai';
+const { OpenAIEmbeddings } = require('@langchain/openai');
+const { Pinecone } = require('@pinecone-database/pinecone');
 
-const EMBED_MODEL = "text-embedding-3-small";
-const INDEX_NAME = "ai-customer-support";
+const EMBED_MODEL = 'text-embedding-3-small';
+const INDEX_NAME = 'ai-customer-support';
 const pc = new Pinecone({
   apiKey: process.env.PINECONE_API_KEY,
 });
@@ -20,7 +20,7 @@ export async function POST(req) {
   const chatHistory = data
     .slice(0, data.length - 1)
     .map((item) => item.content)
-    .join("\n");
+    .join('\n');
 
   const embeddings = new OpenAIEmbeddings({
     openAIApiKey: process.env.OPENAI_API_KEY,
@@ -39,7 +39,7 @@ export async function POST(req) {
     .map((match, index) => {
       return `[${index + 1}] ${match.metadata.text}`;
     })
-    .join("\n\n");
+    .join('\n\n');
 
   const prompt = `You are an AI assistant that answers questions based ONLY on the following context from a YouTube video transcript. Do not use any external knowledge.
 
@@ -57,7 +57,7 @@ Question: ${query}
 
 Instructions:
 1. Answer the question using ONLY the information provided in the context.
-2. If the answer is not contained in the context, say "I don't have enough information from the video transcript to answer this question."
+2. If the answer is not contained in the context, say "I don't have enough information from the video transcript to answer this question. Try asking something more specific."
 3. Use citations like [1], [2], [3] to indicate which part of the context you're using for each part of your answer.
 4. Do not make up or infer any information that is not explicitly stated in the context.
 
@@ -65,14 +65,14 @@ Instructions:
 Answer:`;
 
   const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: 'gpt-4o-mini',
     messages: [
       {
-        role: "system",
+        role: 'system',
         content: SYSTEM_PROMPT,
       },
       {
-        role: "user",
+        role: 'user',
         content: prompt,
       },
       ...data,

@@ -5,7 +5,7 @@ export default function Modal({ children, onClose }) {
         <div className="flex w-full justify-end">
           <button
             onClick={onClose}
-            className="h-6 w-6 rounded-full bg-gray-200 text-center text-black hover:brightness-150"
+            className="flex items-center justify-center h-6 w-6 rounded-full bg-gray-200 text-center text-black hover:bg-gray-400"
           >
             X
           </button>
