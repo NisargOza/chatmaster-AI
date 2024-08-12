@@ -2,7 +2,7 @@
 import { YoutubeLoader } from "@langchain/community/document_loaders/web/youtube";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
-const { OpenAIEmbeddings } = require("@langchain/openai");
+import { OpenAIEmbeddings } from "@langchain/openai";
 import { v4 as uuidv4 } from "uuid";
 import { redirect } from "next/navigation";
 
