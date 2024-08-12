@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
+import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 
 const NextBreadcrumbs = () => {
   const pathname = usePathname();
@@ -49,6 +50,14 @@ const NextBreadcrumbs = () => {
           </li>
         ))}
       </ol>
+      <div className="flex-grow text-right">
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
     </nav>
   );
 };

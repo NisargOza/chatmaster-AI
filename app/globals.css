@@ -13,19 +13,20 @@
   --login-input-bg-color: #ffffff; /* White background for login input fields */
   --login-input-text-color: #333333; /* Dark text color for login input fields */
   --input-text-color: #000000; /* Text color for input fields */
-  --button-bg-color: #121212; 
+  --button-bg-color: #121212;
   --button-hover-bg-color: #171717;
   --button-active-bg-color: #141414;
   --button-text-color: #ffffff;
   --text-color: #ffffff;
   --border-color: #000000;
-  --font-family: 'Roboto', sans-serif;
+  --font-family: "Roboto", sans-serif;
   --header-bg-color: #333; /* Background color for header */
   --header-text-color: #ffffff; /* Text color for header */
 }
 
 /* Global Styles */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -106,7 +107,9 @@ html, body {
 
 /* Chat Input Area Styles */
 .chat-input-area {
-  background-color: var(--background-color); /* Black background for input area */
+  background-color: var(
+    --background-color
+  ); /* Black background for input area */
   position: fixed;
   bottom: 0;
   left: 0;
@@ -144,8 +147,11 @@ html, body {
 }
 
 /* Input Field Styles for Chatbox */
-.chat-container input[type="text"], .chat-container input[type="email"] {
-  background-color: var(--chat-input-bg-color); /* Black background for chatbox input */
+.chat-container input[type="text"],
+.chat-container input[type="email"] {
+  background-color: var(
+    --chat-input-bg-color
+  ); /* Black background for chatbox input */
   color: var(--chat-input-text-color); /* Light gray text color */
   border: 1px solid var(--border-color);
   padding: 0.5rem;
@@ -157,8 +163,11 @@ html, body {
 }
 
 /* Input Field Styles for Login Page */
-.signup-container input[type="text"], .signup-container input[type="email"] {
-  background-color: var(--login-input-bg-color); /* White background for login input */
+.signup-container input[type="text"],
+.signup-container input[type="email"] {
+  background-color: var(
+    --login-input-bg-color
+  ); /* White background for login input */
   color: var(--login-input-text-color); /* Dark text color */
   border: 1px solid var(--border-color);
   padding: 0.5rem;
@@ -193,11 +202,14 @@ button:active {
 
 /* Ensure responsiveness */
 @media (max-width: 768px) {
-  .bg-user-message, .bg-assistant-message {
+  .bg-user-message,
+  .bg-assistant-message {
     max-width: 90%;
   }
 
-  input[type="text"], input[type="email"], button {
+  input[type="text"],
+  input[type="email"],
+  button {
     width: 100%;
   }
 }
@@ -208,14 +220,18 @@ button:active {
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  background-color: var(--background-color); /* Ensure background color matches your design */
+  background-color: var(
+    --background-color
+  ); /* Ensure background color matches your design */
 }
 
 /* Sign-In Form Styles */
 .sign-in-form {
   max-width: 400px; /* Set a maximum width for the form */
   width: 100%; /* Make the form take up available space within the max-width */
-  background-color: var(--login-input-bg-color); /* Background color for the form */
+  background-color: var(
+    --login-input-bg-color
+  ); /* Background color for the form */
   border-radius: 0.5rem; /* Rounded corners for the form container */
   padding: 2rem; /* Padding inside the form container */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow to the form */

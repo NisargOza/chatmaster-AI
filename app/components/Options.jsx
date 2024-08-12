@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import H1 from "./H1";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export default function Options() {
   return (
